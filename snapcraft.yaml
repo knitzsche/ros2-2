@@ -1,0 +1,51 @@
+name: kyle-ros2-talker-listener
+version: "0.1"
+summary: ros2 cpp talker and listener
+description: |
+  This example launches a ROS2 talker and listener.
+
+grade: devel
+confinement: strict
+base: core18
+
+parts:
+  publisher:
+    plugin: colcon
+    source: src/
+    colcon-rosdistro: crystal
+    colcon-source-space: kyle_publisher
+    build-packages: [make, gcc, g++]
+    stage-packages: [ros-crystal-ros2launch]
+    override-build: |
+      snapcraftctl build
+      cp -r ../src/kyle_publisher/launch $SNAPCRAFT_PART_INSTALL/opt/ros/snap/share/kyle_publisher/
+
+  subscriber:
+    plugin: colcon
+    source: src/
+    colcon-rosdistro: crystal
+    colcon-source-space: kyle_subscriber
+    build-packages: [make, gcc, g++]
+    after: [publisher]
+    override-build: |
+      snapcraftctl build
+      cp -r ../src/kyle_subscriber/launch $SNAPCRAFT_PART_INSTALL/opt/ros/snap/share/kyle_subscriber/
+    stage:
+      - -usr/lib/python3/
+      - -usr/lib/python3.6/
+      - -opt/ros/snap/local_setup.bash
+      - -opt/ros/snap/local_setup.ps1
+      - -opt/ros/snap/local_setup.sh
+      - -opt/ros/snap/local_setup.zsh
+      - -opt/ros/snap/setup.bash
+      - -opt/ros/snap/setup.ps1
+      - -opt/ros/snap/setup.sh
+      - -opt/ros/snap/setup.zsh
+ 
+apps:
+  publish:
+    command: opt/ros/crystal/bin/ros2 launch kyle_publisher launch_publisher.py
+    plugs: [network, network-bind]
+  subscribe:
+    command: opt/ros/crystal/bin/ros2 launch kyle_subscriber launch_subscriber.py
+    plugs: [network, network-bind]
