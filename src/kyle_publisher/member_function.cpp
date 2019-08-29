@@ -39,10 +39,10 @@ public:
   }
 
 private:
-   std::string adjectives[55] = {"awesome","helpful","southern","able","actual","entire","latter","boring","pleasant","tiny","afraid","massive","foreign","severe","saucy","unfair","sorry","civil","alive","former","pregnant","ugly","lucky","basic","legal","inner","recent","distinct","ugly","hungry","sudden","former","actual","inner","foreign","tiny","angry","alive","pleasant","lucky","willing","mental","civil","global","aware","decent","distinct","pregnant","asleep","sorry","massive","southern","eastern","wooden","nervous"};
-   std::string nouns[55] = {"hall","insurance","assistance","worker","transportation","dinner","election","technology","surgery","speaker","paper","university","speech","friendship","recipe","definition","description","reflection","advertising","variety","person","knowledge","chest","basis","patience","warning","connection","drama","chocolate","performance","county","nature","union","activity","information","resolution","organization","television","tale","success","growth","fortune","story","newspaper","employer","editor","science","sympathy","republic","tennis","song","celebration","complaint","engineering","king"}; 
-   std::string get_word(int limit, std::string filename)
-   {
+    std::string adjectives[55] = {"awesome","helpful","southern","able","actual","entire","latter","boring","pleasant","tiny","afraid","massive","foreign","severe","saucy","unfair","sorry","civil","alive","former","pregnant","ugly","lucky","basic","legal","inner","recent","distinct","ugly","hungry","sudden","former","actual","inner","foreign","tiny","angry","alive","pleasant","lucky","willing","mental","civil","global","aware","decent","distinct","pregnant","asleep","sorry","massive","southern","eastern","wooden","nervous"};
+    std::string nouns[55] = {"hall","insurance","assistance","worker","transportation","dinner","election","technology","surgery","speaker","paper","university","speech","friendship","recipe","definition","description","reflection","advertising","variety","person","knowledge","chest","basis","patience","warning","connection","drama","chocolate","performance","county","nature","union","activity","information","resolution","organization","television","tale","success","growth","fortune","story","newspaper","employer","editor","science","sympathy","republic","tennis","song","celebration","complaint","engineering","king"}; 
+    std::string get_word(int limit, std::string filename)
+{
     std::string path;
     const char* env_p = std::getenv("SNAP");
     if ((env_p != NULL) && (env_p[0] == '\0'))
@@ -81,7 +81,7 @@ private:
     auto message = std_msgs::msg::String();
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 eng(rd()); // seed the generator
-    std::uniform_int_distribution<> distr(1, 55); // define the range
+    std::uniform_int_distribution<> distr(0, 54); // define the range
 
     std::string adj = adjectives[distr(eng)];
     //std::string adj = get_word( distr(eng), "adj" );
