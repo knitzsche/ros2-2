@@ -1,10 +1,11 @@
-name: kyle-ros2-talker-listener
-version: "0.1"
-summary: ros2 cpp talker and listener
+name: kyle-ros2-colcon-pub-sub
+version: "1"
+summary: A ros2 cpp talker and listener
 description: |
-  This example launches a ROS2 talker and listener.
+  This snap uses the snapcraft colcon plugin and provides a ROS2
+  publisher and subscriber.
 
-grade: devel
+grade: stable
 confinement: strict
 base: core18
 
