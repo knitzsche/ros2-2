@@ -41,40 +41,6 @@ public:
 private:
     std::string adjectives[55] = {"awesome","helpful","southern","able","actual","entire","latter","boring","pleasant","tiny","afraid","massive","foreign","severe","saucy","unfair","sorry","civil","alive","former","pregnant","ugly","lucky","basic","legal","inner","recent","distinct","ugly","hungry","sudden","former","actual","inner","foreign","tiny","angry","alive","pleasant","lucky","willing","mental","civil","global","aware","decent","distinct","pregnant","asleep","sorry","massive","southern","eastern","wooden","nervous"};
     std::string nouns[55] = {"hall","insurance","assistance","worker","transportation","dinner","election","technology","surgery","speaker","paper","university","speech","friendship","recipe","definition","description","reflection","advertising","variety","person","knowledge","chest","basis","patience","warning","connection","drama","chocolate","performance","county","nature","union","activity","information","resolution","organization","television","tale","success","growth","fortune","story","newspaper","employer","editor","science","sympathy","republic","tennis","song","celebration","complaint","engineering","king"}; 
-    std::string get_word(int limit, std::string filename)
-{
-    std::string path;
-    const char* env_p = std::getenv("SNAP");
-    if ((env_p != NULL) && (env_p[0] == '\0'))
-    { 
-      path = std::string(env_p);
-      std::cout << "not null. $SNAP is " << path << std::endl;
-    }
-    else
-    {
-      path = "/tmp/";
-    }
-    std::cout << "path: " << path << std::endl;
-    std::string adj;
-    std::ifstream infile(path + filename);
-    if (infile.fail())	
-    {
-	std::cout << "can't find file." << std::endl;
-    }
-    int idx = 0;
-    for( std::string line; getline( infile, line ); )
-    {
-      idx++;
-      if (idx < limit)
-      {
-        continue;
-      }
-      adj = line;
-      std::cout << "in adj " << adj << std::endl;
-      break;
-    }
-    return adj;
-}
 
   void timer_callback()
   {
@@ -82,11 +48,8 @@ private:
     std::random_device rd; // obtain a random number from hardware
     std::mt19937 eng(rd()); // seed the generator
     std::uniform_int_distribution<> distr(0, 54); // define the range
-
     std::string adj = adjectives[distr(eng)];
-    //std::string adj = get_word( distr(eng), "adj" );
     std::string noun = nouns[distr(eng)];
-    //std::string noun = get_word( distr(eng), "noun" );
     message.data = adj + " " + noun;
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
     publisher_->publish(message);
